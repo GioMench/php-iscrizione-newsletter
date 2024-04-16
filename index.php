@@ -1,4 +1,18 @@
 <?php
+var_dump($_GET);
+var_dump(isset($_GET['email']));
+$email = $_GET['email'];
+
+if (isset($email)) {
+    var_dump($email);
+    var_dump(str_contains($email, '@'), str_contains($email, '.'));
+    if (str_contains($email, '@') && str_contains($email, '.')) {
+        $message = 'ok';
+    } else {
+        $message = 'ops';
+    }
+
+}
 
 ?>
 
@@ -42,6 +56,13 @@
     </header>
 
     <main>
+
+        <?php if (isset($message)): ?>
+            <div class="alert alert-primary" role="alert">
+                <strong><?= $message ?></strong>
+            </div>
+        <?php endif; ?>
+
 
         <div class="p-5 mb-4 bg-light rounded-3">
             <div class="container-fluid py-5">
@@ -168,11 +189,12 @@
                 <form action="" method="get" class="d-flex align-items-center justify-content-center">
                     <div>
                         <label for="email" class="form-label"></label>
-                        <input type="email" class="form-control rounded-0" name="email" id="email"
-                            aria-describedby="emailHelper" placeholder="" />
+                        <input type="text" class="form-control rounded-0" name="email" id="email"
+                            aria-describedby="emailHelper" placeholder="" style="margin-top: 13px"/>
                         <small id="emailHelper" class="form-text text muted"> Type your email address</small>
                     </div>
                     <button type="submit" class="btn btn-dark rounded-0">Subscribe</button>
+
                 </form>
             </div>
         </section>
