@@ -5,15 +5,40 @@ $email = $_GET['email'];
 
 if (isset($email)) {
     var_dump($email);
-    var_dump(str_contains($email, '@'), str_contains($email, '.'));
+    /* var_dump(str_contains($email, '@'), str_contains($email, '.'));
+     if (str_contains($email, '@') && str_contains($email, '.')) {
+         $message = 'ok';
+     } else {
+         $message = 'ops';
+     }*/
+    $response = checkEmail($email);
+    $message = generateAlert($response);
+
+};
+
+function generateAlert($response){
+    
+    if ($response) {
+       return [
+            'status' => 'success',
+            'text' => 'Success! you are subscribe.'
+        ];
+    } 
+        return [
+            'status' => 'danger',
+            'text' => 'Error! your email is incorrect.',
+        ];
+   
+    
+};
+
+function checkEmail($email)
+{
     if (str_contains($email, '@') && str_contains($email, '.')) {
-        $message = 'ok';
-    } else {
-        $message = 'ops';
+        return true;
     }
-
+    return false;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -31,6 +56,7 @@ if (isset($email)) {
     <header>
 
         <nav class="navbar navbar-expand-md navbar-light bg-dark">
+
             <div class="container">
                 <a class="navbar-brand text-white" href="/">Newsletter</a>
                 <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
@@ -58,14 +84,16 @@ if (isset($email)) {
     <main>
 
         <?php if (isset($message)): ?>
-            <div class="alert alert-primary" role="alert">
-                <strong><?= $message ?></strong>
+            <div class="alert alert-<?= $message['status']; ?>" role="alert">
+                <strong><?= $message['text']; ?></strong>
             </div>
         <?php endif; ?>
 
 
         <div class="p-5 mb-4 bg-light rounded-3">
-            <div class="container-fluid py-5">
+
+            <div class="container-fluid py-5 z-1">
+
                 <h1 class="display-5 fw-bold">Welcome to my site</h1>
                 <p class="col-md-8 fs-4">
                     Lorem ipsum dolor
@@ -74,7 +102,10 @@ if (isset($email)) {
                     Browse me
                 </button>
             </div>
+
         </div>
+
+
 
         <section class="posts my-4">
             <div class="container">
@@ -166,11 +197,6 @@ if (isset($email)) {
                         </div>
 
                     </div>
-
-
-
-
-
                 </div>
             </div>
         </section>
@@ -190,7 +216,7 @@ if (isset($email)) {
                     <div>
                         <label for="email" class="form-label"></label>
                         <input type="text" class="form-control rounded-0" name="email" id="email"
-                            aria-describedby="emailHelper" placeholder="" style="margin-top: 13px"/>
+                            aria-describedby="emailHelper" placeholder="" style="margin-top: 13px" />
                         <small id="emailHelper" class="form-text text muted"> Type your email address</small>
                     </div>
                     <button type="submit" class="btn btn-dark rounded-0">Subscribe</button>
