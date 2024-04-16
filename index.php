@@ -1,85 +1,23 @@
 <?php
+//var_dump(__DIR__."/helpers/functions.php");
+require_once __DIR__."/helpers/functions.php";
+
 var_dump($_GET);
 var_dump(isset($_GET['email']));
 $email = $_GET['email'];
 
 if (isset($email)) {
     var_dump($email);
-    /* var_dump(str_contains($email, '@'), str_contains($email, '.'));
-     if (str_contains($email, '@') && str_contains($email, '.')) {
-         $message = 'ok';
-     } else {
-         $message = 'ops';
-     }*/
     $response = checkEmail($email);
     $message = generateAlert($response);
 
 };
 
-function generateAlert($response){
-    
-    if ($response) {
-       return [
-            'status' => 'success',
-            'text' => 'Success! you are subscribe.'
-        ];
-    } 
-        return [
-            'status' => 'danger',
-            'text' => 'Error! your email is incorrect.',
-        ];
-   
-    
-};
-
-function checkEmail($email)
-{
-    if (str_contains($email, '@') && str_contains($email, '.')) {
-        return true;
-    }
-    return false;
-}
+include_once __DIR__.'/layout/head.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>newsletter</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-
-<body>
-    <header>
-
-        <nav class="navbar navbar-expand-md navbar-light bg-dark">
-
-            <div class="container">
-                <a class="navbar-brand text-white" href="/">Newsletter</a>
-                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="collapsibleNavId">
-                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active text-white" href="/" aria-current="page">Home
-                                <span class="visually-hidden">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/">About</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
 
-    </header>
 
     <main>
 
@@ -219,7 +157,8 @@ function checkEmail($email)
                             aria-describedby="emailHelper" placeholder="" style="margin-top: 13px" />
                         <small id="emailHelper" class="form-text text muted"> Type your email address</small>
                     </div>
-                    <button type="submit" class="btn btn-dark rounded-0">Subscribe</button>
+                    <button type="submit" class="btn btn-dark rounded-0" > Subscribe
+                    </button>
 
                 </form>
             </div>
